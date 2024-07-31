@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background:#f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Student Information</h2>
+    <form id="studentForm" onsubmit="return displayData(event)">
+        <label for="name">Student Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="uucms">UUCMS No:</label>
+        <input type="text" id="uucms" required>
+
+        <label for="course">Course:</label>
+        <input type="text" id="course" required>
+
+        <label for="semester">Semester:</label>
+        <select id="semester" required>
+            <option value="">Select Semester</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+
+        <h3>Subject Marks</h3>
+        <label for="python">Python:</label>
+        <input type="number" id="python" required>
+
+        <label for="os">Operating Systems:</label>
+        <input type="number" id="os" required>
+
+        <label for="multimedia">Multimedia and Animation:</label>
+        <input type="number" id="multimedia" required>
+
+        <label for="hindi">Hindi:</label>
+        <input type="number" id="hindi" required>
+
+        <label for="english">English:</label>
+        <input type="number" id="english" required>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    function displayData(event) {
+        event.preventDefault(); // Prevent form from submitting normally
+
+        // Collecting form data
+        const name = document.getElementById('name').value;
+        const uucms = document.getElementById('uucms').value;
+        const course = document.getElementById('course').value;
+        const semester = document.getElementById('semester').value;
+        const email = document.getElementById('email').value;
+        const pythonMarks = parseFloat(document.getElementById('python').value);
+        const osMarks = parseFloat(document.getElementById('os').value);
+        const multimediaMarks = parseFloat(document.getElementById('multimedia').value);
+        const hindiMarks = parseFloat(document.getElementById('hindi').value);
+        const englishMarks = parseFloat(document.getElementById('english').value);
+
+        // Calculating total, average and percentage
+        const totalMarks = pythonMarks + osMarks + multimediaMarks + hindiMarks + englishMarks;
+        const average = totalMarks / 5;
+        const percentage = (totalMarks / 500) * 100;
+
+        // Creating a new page to display results
+        const resultPage = `
+            <div style="font-family: Arial, sans-serif; padding: 20px;">
+                <h2>Student Information</h2>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>UUCMS No:</strong> ${uucms}</p>
+                <p><strong>Course:</strong> ${course}</p>
+                <p><strong>Semester:</strong> ${semester}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <h3>Subject Marks</h3>
+                <p><strong>Python:</strong> ${pythonMarks}</p>
+                <p><strong>Operating Systems:</strong> ${osMarks}</p>
+                <p><strong>Multimedia and Animation:</strong> ${multimediaMarks}</p>
+                <p><strong>Hindi:</strong> ${hindiMarks}</p>
+                <p><strong>English:</strong> ${englishMarks}</p>
+                <h3>Results</h3>
+                <p><strong>Total Marks:</strong> ${totalMarks}</p>
+                <p><strong>Average Marks:</strong> ${average.toFixed(2)}</p>
+                <p><strong>Percentage:</strong> ${percentage.toFixed(2)}%</p>
+            </div>
+        `;
+
+        // Open a new window to display results
+        const newWindow = window.open('', '', 'width=600,height=400');
+        newWindow.document.write(resultPage);
+        newWindow.document.close();
+    }
+</script>
+
+</body>
+</html>
